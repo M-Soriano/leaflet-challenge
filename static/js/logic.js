@@ -25,6 +25,7 @@ let tectonic_plates = new L.LayerGroup();
 let baseMaps = {
   'basemap':basemap,
   'street':street
+  
 }
 
 let overlays= {
@@ -92,7 +93,7 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geoj
     }
   // OPTIONAL: Step 2
   // Add the data to the earthquake layer instead of directly to the map.
-  }).addTo(map);
+  }).addTo(earthquake);
 
   // Create a legend control object.
   let legend = L.control({
