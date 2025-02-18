@@ -34,7 +34,7 @@ let overlays= {
 // Add a control to the map that will allow the user to change which layers are visible.
 
 L.control.layers(baseMaps,overlays,{
-  collapsed:false
+  collapsed:true
 }).addTo(map);
 
 // Make a request that retrieves the earthquake geoJSON data.
@@ -49,6 +49,7 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geoj
 
   // This function determines the color of the marker based on the depth of the earthquake.
   function getColor(depth) {
+    
 
   }
 
@@ -61,6 +62,7 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geoj
   L.geoJson(data, {
     // Turn each feature into a circleMarker on the map.
     pointToLayer: function (feature, latlng) {
+      return L.circleMarker(latlng);
 
     },
     // Set the style for each circleMarker using our styleInfo function.
