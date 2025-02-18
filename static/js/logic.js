@@ -12,11 +12,10 @@ let street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 let map =L.map('map',{
   center:[40,-100],
   zoom:2,
-  layers:[basemap]
 });
 
-
 // Then add the 'basemap' tile layer to the map.
+basemap.addTo(map);
 
 // OPTIONAL: Step 2
 // Create the layer groups, base maps, and overlays for our two sets of data, earthquakes and tectonic_plates.
