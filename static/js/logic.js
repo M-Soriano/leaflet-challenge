@@ -19,9 +19,21 @@ basemap.addTo(map);
 
 // OPTIONAL: Step 2
 // Create the layer groups, base maps, and overlays for our two sets of data, earthquakes and tectonic_plates.
-// Add a control to the map that will allow the user to change which layers are visible.
 let earthquake = new L.LayerGroup();
 let tectonic_plates = new L.LayerGroup();
+
+let baseMaps = {
+  'basemap':basemap,
+  'street':street
+}
+
+let overlays= {
+  'earthquake': earthquake,
+  'tectonic_plates':tectonic_plates
+}
+// Add a control to the map that will allow the user to change which layers are visible.
+
+
 
 // Make a request that retrieves the earthquake geoJSON data.
 d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson").then(function (data) {
