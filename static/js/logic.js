@@ -33,7 +33,9 @@ let overlays= {
 }
 // Add a control to the map that will allow the user to change which layers are visible.
 
-
+L.control.layers(baseMaps,overlays,{
+  collapsed:false
+}).addTo(map);
 
 // Make a request that retrieves the earthquake geoJSON data.
 d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson").then(function (data) {
