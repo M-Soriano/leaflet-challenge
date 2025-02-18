@@ -44,17 +44,32 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geoj
   // the map. Pass the magnitude and depth of the earthquake into two separate functions
   // to calculate the color and radius.
   function styleInfo(feature) {
+     return {
+      opacity: 1,
+      fillOpacity:1,
+      fillColor: getColor(feature.geometry.coordinates[2]),//depth
+      color: 'black',
+      radius: getRadius(feature.properties.mag),
+      stroke:true,
+      weight:0.5
+     };
 
   }
 
   // This function determines the color of the marker based on the depth of the earthquake.
   function getColor(depth) {
-    
-
+    return depth >= 90 ? '#900C3F': //? is if ... else statemment
+          depth >= 70 ? 'ff260d':
+          depth >= 50 ? '#FF5733':
+          depth >= 30 ? '#ffc40d':
+          depth >= 10 ? '#f4ff0d':
+          "#53ff0d";
   }
 
   // This function determines the radius of the earthquake marker based on its magnitude.
   function getRadius(magnitude) {
+    return magnitude === 0 ? 1 :
+    magnitude * 4;
 
   }
 
