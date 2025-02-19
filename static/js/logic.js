@@ -60,7 +60,7 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geoj
   // This function determines the color of the marker based on the depth of the earthquake.
   function getColor(depth) {
     return depth >= 90 ? '#900C3F': //? is if ... else statemment
-          depth >= 70 ? 'ff260d':
+          depth >= 70 ? '#ff260d':
           depth >= 50 ? '#FF5733':
           depth >= 30 ? '#ffc40d':
           depth >= 10 ? '#f4ff0d':
@@ -105,21 +105,25 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geoj
     let div = L.DomUtil.create("div", "info legend");
 
     // Initialize depth intervals and colors for the legend
-
+    let depths = [-10,10,20,30,50,70,90];
 
     // Loop through our depth intervals to generate a label with a colored square for each interval.
-
-
+    for (let i=0; i < depths.length; i++){
+      div.innerHTML +=
+      `<li style='background:${getColor(depths[i])};'></li>`+ depths[i] + `${depths[i+1] ? '&dash;' + depths[i+1] : '+'}<br>`;
+    }
     return div;
   };
 
   // Finally, add the legend to the map.
+  legend.addTo(map);
 
 
   // OPTIONAL: Step 2
   // Make a request to get our Tectonic Plate geoJSON data.
   d3.json("https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json").then(function (plate_data) {
     // Save the geoJSON data, along with style information, to the tectonic_plates layer.
+    
 
 
     // Then add the tectonic_plates layer to the map.
