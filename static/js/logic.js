@@ -123,10 +123,14 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geoj
   // Make a request to get our Tectonic Plate geoJSON data.
   d3.json("https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json").then(function (plate_data) {
     // Save the geoJSON data, along with style information, to the tectonic_plates layer.
-    
+    L.geoJson(plate_data,{
+      color: 'orange',
+      weight: 2
+    }).addTo(tectonic_plates);
 
 
     // Then add the tectonic_plates layer to the map.
+    tectonic_plates.addTo(map);
 
   });
 });
