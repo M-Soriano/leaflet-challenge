@@ -21,7 +21,7 @@ Repository file structure:
 Purpose:
 Developing a visualization(map) with USGS data on earthquakes.
 
-- map
+- map - Click [here](https://m-soriano.github.io/leaflet-challenge/) to visit the deployed site.
 ![map](README_Resources/map.png)
 
 - Features:
