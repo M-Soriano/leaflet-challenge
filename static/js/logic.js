@@ -4,14 +4,15 @@ let basemap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 
 });
 // OPTIONAL: Step 2
 // Create the 'street' tile layer as a second background of the map
-let street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+//Change street tile layer to the topo layer, to reflect the map in instrutions
+let topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+	attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
 });
 
 // Create the map object with center and zoom options.
 let map =L.map('map',{
   center:[40,-100],
-  zoom:2,
+  zoom:5
 });
 
 // Then add the 'basemap' tile layer to the map.
@@ -23,8 +24,8 @@ let earthquake = new L.LayerGroup();
 let tectonic_plates = new L.LayerGroup();
 
 let baseMaps = {
-  'basemap':basemap,
-  'street':street
+  basemap :basemap,
+  Topography: topo
   
 }
 
@@ -60,9 +61,10 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geoj
   // This function determines the color of the marker based on the depth of the earthquake.
   function getColor(depth) {
     return depth >= 90 ? '#900C3F': //? is if ... else statemment
-          depth >= 70 ? '#ff260d':
-          depth >= 50 ? '#FF5733':
-          depth >= 30 ? '#ffc40d':
+          depth >= 70 ? '#c0392b':
+          depth >= 50 ? '#d68910':
+          depth >= 30 ? '#f0b27a':
+          depth >= 20 ? '#ffe599':
           depth >= 10 ? '#f4ff0d':
           "#53ff0d";
   }
@@ -87,13 +89,15 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geoj
     onEachFeature: function (feature, layer) {
       let mg = feature.properties.mag
       let lt = feature.properties.place
-      layer.bindPopup(`Magnitude: ${mg}<br>Location: ${lt}`)
+      let dh= feature.geometry.coordinates[2]
+      layer.bindPopup(`Magnitude: ${mg}<br>Location: ${lt}<br>Depth: ${dh}`)
       
 
     }
   // OPTIONAL: Step 2
   // Add the data to the earthquake layer instead of directly to the map.
   }).addTo(earthquake);
+  earthquake.addTo(map);
 
   // Create a legend control object.
   let legend = L.control({
